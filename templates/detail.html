@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block baslik %}
+<title>Details</title>
+
+{% endblock baslik %}
+
+{% block body %}
+{% if note %}
+        <h2>{{note.title}}</h2>
+    <hr>
+    <p>{{note.created_date}}</p>
+   
+    <hr style="margin-bottom:60px;">
+    
+    <p  style="margin-bottom:60px;" class="lead">{{note.content}}</p>
+
+    <hr style="margin-bottom:100px;">
+
+
+        <hr style="margin-bottom:100px;">
+    {% if  note.author_id != request.user.id %}
+       
+    {% else %}
+         <a type="submit" class="btn btn-danger" style="margin:10px;margin-left:20 px;float:right;" href="/deletenote/{{note.id}}">Sil</a>
+         <a type="submit" class="btn btn-danger" style="margin:10px;margin-left:20 px;float:right;" href="/note/update/{{note.id}}">Güncelle</a>
+    {% endif %}
+       
+        <a type="submit" class="btn btn-danger" style="margin:10px;margin-left:20 px;float:right;" href="/dashboard/">Notlarıma Dön</a>
+
+{% endif %}
+
+{% endblock body %} 

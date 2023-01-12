@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block baslik %}
+<title>Yours Notes</title>
+{% endblock baslik %}
+{% block body %}
+<h3>Senin Notların </h3>
+<hr>
+<p>Hoşgeldiniz  , {{request.user.username}}</p>
+<hr>
+<a class="btn btn-danger" href ="/addnote/">Yeni Not Oluştur</a>
+
+<hr>
+<form> 
+{% csrf_token %}
+<div style="float:right">
+<input type="text" name="keyword" class="input-sm" ></input>
+<button  type="submit" class="btn btn-danger">Ara</button>
+</div>
+</form>
+{% if notes %}
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Başlık</th>
+      <th scope="col">Tarih</th>
+      <th scope="col">Güncelle</th>
+      <th scope="col">Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!--  <tr>
+    <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr> -->
+    {% for note in notes %}
+      
+        <tr>
+            <th scope="row">{{note.id}}</th>
+            <td><a href="/detail/{{note.id}}">{{note.title}}</a></td>
+            <td>{{note.created_date}}</td>    
+            {% if note.author_id != request.user.id %}
+              <td>Güncellenemez</td>
+            <td>Silinemez</td>
+            {% else %}
+           
+            <td><a href="/note/update/{{note.id}}" class="btn btn-danger">Güncelle</a></td>
+            <td><a href="/deletenote/{{note.id}}" class="btn btn-danger">Sil</a></td>
+            {% endif %}
+          
+            
+        
+            
+        </tr>
+    
+    {% endfor %}
+    
+  </tbody>
+</table>
+{% else %}
+
+    <div class="alert alert-danger">
+        Not Bulunamadı...
+    </div>
+{% endif %}
+
+
+{% endblock body %}

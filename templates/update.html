@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block baslik %}
+<title>Details</title>
+
+{% endblock baslik %}
+
+{% block body %}
+{% if article %}
+        <h2>{{article.title}}</h2>
+    <hr>
+    <p class="lead">YAZAR : {{article.author.username}}</p>
+    <hr>
+    <p>{{article.created_date}}</p>
+    {% if article.article_image %}
+   
+    <hr>
+    <img class="img-fluid rounded" src="{{article.article_image.url}}"alt=""  enctype="multipart/form-data">
+   
+    {% endif %}
+    
+    <hr style="margin-bottom:60px;">
+    
+    <p  style="margin-bottom:60px;" class="lead">{{article.content| safe }}</p>
+
+    <hr style="margin-bottom:100px;">
+
+
+        <h5 class="card-header" style="margin-bottom:40px;">Yorum Ekleyebilirsiniz</h5>
+        <label for="exampleInputEmail1">İsminiz</label>
+        <input type="txt" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="İsminizi giriniz...">
+        <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!">Yorum</textarea></form>
+        <a style="float:right;" href="/articles/article/{{articles.id}}" class="btn btn-danger" >Ekle</a>
+
+        <hr style="margin-bottom:100px;">
+    
+{% endif %}
+
+{% endblock body %} 
